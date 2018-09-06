@@ -17,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 namespace AnalyticsApp.Controllers
 {
     [Produces("application/json")]
-    [Route("api/auth")]
     public class AuthController : Controller
     {
         private readonly AnalyticsAppContext _context;
@@ -33,15 +32,8 @@ namespace AnalyticsApp.Controllers
             _configuration = configuration;
         }
 
-        // GET: api/auth
-        [HttpGet]
-        public IEnumerable<User> GetUsers()
-        {
-            return _context.User;
-        }
-
-        [Route("/api/auth/register")]
         [HttpPost]
+        [Route("/api/auth/register")]
         public async Task<object> Register()
         {
             var user = new User
@@ -54,8 +46,8 @@ namespace AnalyticsApp.Controllers
             return Ok();
         }
 
-        [Route("/api/auth/login")]
         [HttpPost]
+        [Route("/api/auth/login")]
         public async Task<IActionResult> PostLogin(LoginUser _loginUser)
         {
             var user = await _userManager.FindByNameAsync(_loginUser.Username);
