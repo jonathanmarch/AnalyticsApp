@@ -11,9 +11,10 @@ using System;
 namespace AnalyticsApp.Migrations
 {
     [DbContext(typeof(AnalyticsAppContext))]
-    partial class AnalyticsAppContextModelSnapshot : ModelSnapshot
+    [Migration("20180911211636_Relationships")]
+    partial class Relationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

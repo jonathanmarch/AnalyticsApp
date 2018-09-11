@@ -8,6 +8,7 @@ namespace AnalyticsApp.Models
     public class Website
     {
         public int WebsiteId { get; set; }
+        public string Name { get; set; }
         public string Domain { get; set; }
     }
 }

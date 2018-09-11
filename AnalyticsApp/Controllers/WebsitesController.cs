@@ -6,18 +6,37 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnalyticsApp.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
+/*
+             var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                id = user.Id,
+                username = user.UserName
+            });
+  */
 namespace AnalyticsApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/websites")]
+    [Authorize]
     public class WebsitesController : Controller
     {
         private readonly AnalyticsAppContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public WebsitesController(AnalyticsAppContext context)
+        public WebsitesController(AnalyticsAppContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/websites
