@@ -28,21 +28,22 @@ namespace AnalyticsApp.Controllers
         // GET: api/websites
         [HttpGet]
         [Authorize]
-        public async Task<ICollection<Website>> GetWebsite()
+        public async Task<IActionResult> GetWebsite()
         {
-            var user = await _context.User.Include("Websites").SingleOrDefaultAsync(m => m.UserName == User.Identity.Name);
+            var user = await _context.User.Include("Websites").SingleOrDefaultAsync(m => m.Id == User.Identity.Name);
 
             if (user == null)
             {
-                return new List<Website>();
+                return BadRequest();
             }
 
-            return user.Websites;
+            return Json(user.Websites);
         }
 
         // GET: api/websites/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWebsite([FromRoute] int id)
+        [Authorize]
+        public async Task<IActionResult> GetWebsite(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -96,9 +97,10 @@ namespace AnalyticsApp.Controllers
 
         // POST: api/websites
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostWebsite(Website website)
         {
-            var user = await _context.User.SingleOrDefaultAsync(m => m.UserName == User.Identity.Name);
+            var user = await _context.User.SingleOrDefaultAsync(m => m.Id == User.Identity.Name);
 
             if (user == null)
             {
@@ -119,7 +121,8 @@ namespace AnalyticsApp.Controllers
 
         // DELETE: api/websites/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWebsite([FromRoute] int id)
+        [Authorize]
+        public async Task<IActionResult> DeleteWebsite(int id)
         {
             if (!ModelState.IsValid)
             {
