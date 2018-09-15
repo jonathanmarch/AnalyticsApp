@@ -58,8 +58,6 @@ namespace AnalyticsApp.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int?>("WebsiteId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -70,8 +68,6 @@ namespace AnalyticsApp.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("WebsiteId");
-
                     b.ToTable("AspNetUsers");
                 });
 
@@ -80,13 +76,19 @@ namespace AnalyticsApp.Migrations
                     b.Property<int>("WebsiteId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Domain");
+                    b.Property<string>("Domain")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("WebsiteId");
 
-                    b.ToTable("Website");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Websites");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -197,11 +199,11 @@ namespace AnalyticsApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AnalyticsApp.Models.User", b =>
+            modelBuilder.Entity("AnalyticsApp.Models.Website", b =>
                 {
-                    b.HasOne("AnalyticsApp.Models.Website", "Website")
-                        .WithMany()
-                        .HasForeignKey("WebsiteId");
+                    b.HasOne("AnalyticsApp.Models.User", "User")
+                        .WithMany("Websites")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

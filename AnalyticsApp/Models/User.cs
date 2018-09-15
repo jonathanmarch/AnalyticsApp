@@ -10,6 +10,11 @@ namespace AnalyticsApp.Models
     [Table("AspNetUsers")]
     public class User : IdentityUser
     {
-        public Website Website { get; set; }
+        public User()
+        {
+            Websites = new List<Website>();
+        }
+
+        public ICollection<Website> Websites { get; set; }
     }
 }

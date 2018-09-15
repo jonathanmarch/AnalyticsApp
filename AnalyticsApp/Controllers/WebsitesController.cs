@@ -9,20 +9,6 @@ using AnalyticsApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
-/*
-             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(new
-            {
-                id = user.Id,
-                username = user.UserName
-            });
-  */
 namespace AnalyticsApp.Controllers
 {
     [Produces("application/json")]
@@ -41,9 +27,17 @@ namespace AnalyticsApp.Controllers
 
         // GET: api/websites
         [HttpGet]
-        public IEnumerable<Website> GetWebsite()
+        [Authorize]
+        public async Task<ICollection<Website>> GetWebsite()
         {
-            return _context.Website;
+            var user = await _context.User.Include("Websites").SingleOrDefaultAsync(m => m.UserName == User.Identity.Name);
+
+            if (user == null)
+            {
+                return new List<Website>();
+            }
+
+            return user.Websites;
         }
 
         // GET: api/websites/5
@@ -102,13 +96,21 @@ namespace AnalyticsApp.Controllers
 
         // POST: api/websites
         [HttpPost]
-        public async Task<IActionResult> PostWebsite([FromBody] Website website)
+        public async Task<IActionResult> PostWebsite(Website website)
         {
+            var user = await _context.User.SingleOrDefaultAsync(m => m.UserName == User.Identity.Name);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            user.Websites.Add(website);
             _context.Website.Add(website);
             await _context.SaveChangesAsync();
 

@@ -11,8 +11,8 @@ using System;
 namespace AnalyticsApp.Migrations
 {
     [DbContext(typeof(AnalyticsAppContext))]
-    [Migration("20180902173259_initial")]
-    partial class initial
+    [Migration("20180915173436_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,11 +77,19 @@ namespace AnalyticsApp.Migrations
                     b.Property<int>("WebsiteId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Domain");
+                    b.Property<string>("Domain")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("WebsiteId");
 
-                    b.ToTable("Website");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Websites");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -190,6 +198,13 @@ namespace AnalyticsApp.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("AnalyticsApp.Models.Website", b =>
+                {
+                    b.HasOne("AnalyticsApp.Models.User", "User")
+                        .WithMany("Websites")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
