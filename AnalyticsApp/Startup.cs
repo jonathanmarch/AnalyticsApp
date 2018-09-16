@@ -75,6 +75,8 @@ namespace AnalyticsApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             app.UseMvc();
