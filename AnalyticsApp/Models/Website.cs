@@ -10,7 +10,7 @@ namespace AnalyticsApp.Models
     [Table("Websites")]
     public class Website
     {
-        public int WebsiteId { get; set; }
+        public Guid WebsiteId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

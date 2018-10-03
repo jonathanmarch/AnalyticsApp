@@ -48,7 +48,7 @@ namespace AnalyticsApp.Controllers
 
         [HttpPost]
         [Route("/api/auth/login")]
-        public async Task<IActionResult> PostLogin(LoginUser _loginUser)
+        public async Task<IActionResult> PostLogin([FromBody] LoginUser _loginUser)
         {
             var user = await _userManager.FindByNameAsync(_loginUser.Username);
 
@@ -88,7 +88,7 @@ namespace AnalyticsApp.Controllers
 
             return Ok(new
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token)
+                Token = new JwtSecurityTokenHandler().WriteToken(token)
             });
         }
     }

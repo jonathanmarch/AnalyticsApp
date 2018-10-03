@@ -158,8 +158,7 @@ namespace AnalyticsApp.Migrations
                 name: "Websites",
                 columns: table => new
                 {
-                    WebsiteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    WebsiteId = table.Column<Guid>(nullable: false),
                     Domain = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: true)

@@ -73,7 +73,7 @@ namespace AnalyticsApp.Migrations
 
             modelBuilder.Entity("AnalyticsApp.Models.Website", b =>
                 {
-                    b.Property<int>("WebsiteId")
+                    b.Property<Guid>("WebsiteId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Domain")
@@ -201,7 +201,7 @@ namespace AnalyticsApp.Migrations
 
             modelBuilder.Entity("AnalyticsApp.Models.Website", b =>
                 {
-                    b.HasOne("AnalyticsApp.Models.User", "User")
+                    b.HasOne("AnalyticsApp.Models.User")
                         .WithMany("Websites")
                         .HasForeignKey("UserId");
                 });

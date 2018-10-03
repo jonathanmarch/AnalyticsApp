@@ -43,7 +43,7 @@ namespace AnalyticsApp.Controllers
         // GET: api/websites/5
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<IActionResult> GetWebsite(int id)
+        public async Task<IActionResult> GetWebsite(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace AnalyticsApp.Controllers
 
         // PUT: api/websites/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWebsite([FromRoute] int id, [FromBody] Website website)
+        public async Task<IActionResult> PutWebsite([FromRoute] Guid id, [FromBody] Website website)
         {
             if (!ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace AnalyticsApp.Controllers
         // POST: api/websites
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> PostWebsite(Website website)
+        public async Task<IActionResult> PostWebsite([FromBody] Website website)
         {
             var user = await _context.User.SingleOrDefaultAsync(m => m.Id == User.Identity.Name);
 
@@ -122,7 +122,7 @@ namespace AnalyticsApp.Controllers
         // DELETE: api/websites/5
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<IActionResult> DeleteWebsite(int id)
+        public async Task<IActionResult> DeleteWebsite(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -141,7 +141,7 @@ namespace AnalyticsApp.Controllers
             return Ok(website);
         }
 
-        private bool WebsiteExists(int id)
+        private bool WebsiteExists(Guid id)
         {
             return _context.Website.Any(e => e.WebsiteId == id);
         }

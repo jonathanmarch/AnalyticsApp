@@ -11,7 +11,7 @@ using System;
 namespace AnalyticsApp.Migrations
 {
     [DbContext(typeof(AnalyticsAppContext))]
-    [Migration("20180915173436_Initial")]
+    [Migration("20181003013038_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace AnalyticsApp.Migrations
 
             modelBuilder.Entity("AnalyticsApp.Models.Website", b =>
                 {
-                    b.Property<int>("WebsiteId")
+                    b.Property<Guid>("WebsiteId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Domain")
@@ -202,7 +202,7 @@ namespace AnalyticsApp.Migrations
 
             modelBuilder.Entity("AnalyticsApp.Models.Website", b =>
                 {
-                    b.HasOne("AnalyticsApp.Models.User", "User")
+                    b.HasOne("AnalyticsApp.Models.User")
                         .WithMany("Websites")
                         .HasForeignKey("UserId");
                 });

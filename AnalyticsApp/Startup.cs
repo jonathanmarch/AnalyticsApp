@@ -30,6 +30,7 @@ namespace AnalyticsApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
 
             services.AddDbContext<AnalyticsAppContext>(options =>
@@ -65,6 +66,7 @@ namespace AnalyticsApp
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                   };
               });
+
         }
 
 
@@ -75,10 +77,18 @@ namespace AnalyticsApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
             app.UseAuthentication();
+
+            app.UseCors(
+                options => options.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+            );
+
             app.UseMvc();
         }
     }
