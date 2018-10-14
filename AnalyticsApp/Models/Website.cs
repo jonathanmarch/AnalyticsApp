@@ -10,6 +10,13 @@ namespace AnalyticsApp.Models
     [Table("Websites")]
     public class Website
     {
+        public Website()
+        {
+            Events = new List<Event>();
+        }
+
+        public ICollection<Event> Events { get; set; }
+
         public Guid WebsiteId { get; set; }
         [Required]
         public string Name { get; set; }

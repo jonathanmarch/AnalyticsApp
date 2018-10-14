@@ -16,5 +16,6 @@ namespace AnalyticsApp.Models
 
         public DbSet<AnalyticsApp.Models.Website> Website { get; set; }
         public DbSet<AnalyticsApp.Models.User> User { get; set; }
+        public DbSet<AnalyticsApp.Models.Event> Event { get; set; }
     }
 }

@@ -10,17 +10,29 @@ namespace AnalyticsApp.Models
 {
     public enum EventTypes
     {
+        Unknown,
         Pageload,
         Custom
     }
 
-    public enum OperatingSytemTypes {
+    public enum PlatformTypes {
+        Unknown,
         Windows,
         Mac,
         Linux,
         Android,
-        iOs,
-        Unknown
+        iOS
+    }
+
+    public enum BrowserTypes
+    {
+        Unknown,
+        IE,
+        Edge,
+        Chrome,
+        Safari,
+        Opera,
+        Firefox
     }
 
     [Table("Events")]
@@ -28,21 +40,18 @@ namespace AnalyticsApp.Models
     {
         public int EventId { get; set; }
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public EventTypes Type { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
         [Required]
         public string UserAgent { get; set; }
         [Required]
-        public OperatingSytemTypes OS { get; set; }
-        [Required, MinLength(4), MaxLength(16)]
-        public byte[] IPAddressBytes { get; set; }
-        public string Location { get; set; }
+        public PlatformTypes Platform { get; set; }
+        [Required]
+        public BrowserTypes Browser { get; set; }
+        public string IpAddress { get; set; }
         public string EventData { get; set; }
-
-        [NotMapped]
-        public IPAddress IPAddress
-        {
-            get { return new IPAddress(IPAddressBytes); }
-            set { IPAddressBytes = value.GetAddressBytes(); }
-        }
+        public string URL { get; set; }
+        public string Path { get; set; }
     }
 }

@@ -4,14 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace AnalyticsApp.Migrations
 {
     [DbContext(typeof(AnalyticsAppContext))]
-    partial class AnalyticsAppContextModelSnapshot : ModelSnapshot
+    [Migration("20181003212752_AddTimestampAndPath")]
+    partial class AddTimestampAndPath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,22 +26,20 @@ namespace AnalyticsApp.Migrations
                     b.Property<int>("EventId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Browser");
+                    b.Property<string>("Country");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("EventData");
 
                     b.Property<string>("IpAddress");
 
+                    b.Property<int>("OS");
+
                     b.Property<string>("Path");
 
-                    b.Property<int>("Platform");
-
-                    b.Property<int>("Type")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("URL");
+                    b.Property<int>("Type");
 
                     b.Property<string>("UserAgent")
                         .IsRequired();

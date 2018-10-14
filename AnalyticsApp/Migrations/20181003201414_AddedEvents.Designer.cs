@@ -4,49 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace AnalyticsApp.Migrations
 {
     [DbContext(typeof(AnalyticsAppContext))]
-    partial class AnalyticsAppContextModelSnapshot : ModelSnapshot
+    [Migration("20181003201414_AddedEvents")]
+    partial class AddedEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AnalyticsApp.Models.Event", b =>
-                {
-                    b.Property<int>("EventId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Browser");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<string>("EventData");
-
-                    b.Property<string>("IpAddress");
-
-                    b.Property<string>("Path");
-
-                    b.Property<int>("Platform");
-
-                    b.Property<int>("Type")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("URL");
-
-                    b.Property<string>("UserAgent")
-                        .IsRequired();
-
-                    b.HasKey("EventId");
-
-                    b.ToTable("Events");
-                });
 
             modelBuilder.Entity("AnalyticsApp.Models.User", b =>
                 {
