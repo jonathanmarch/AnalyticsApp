@@ -1,3 +1,3 @@
 # AnalyticsApp
 
-This project is built with ASP.NET core.
+This project is built with ASP.NET core and Entity Framework.
