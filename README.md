@@ -17,4 +17,4 @@ Password: `demo12345`
 
 # Client Side
 
-Run the following Angular App and change config to match the ports of the Development Server.
+Run the following Angular App and change API URL to match the URL of the Development Server.
